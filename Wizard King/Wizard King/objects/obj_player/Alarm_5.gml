@@ -1,0 +1,2 @@
+//-------INVINCIBLE
+invincible = false
