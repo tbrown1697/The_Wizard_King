@@ -58,7 +58,7 @@ if(moveX != 0)
 //Vertical
 if(moveY != 0)
 {
-	if(place_meeting(x, y + moveY, obj_wall)) {
+	if(place_meeting(x, y + moveY, obj_collision_box)) {
 		repeat(abs(moveY)) {
 			if(!place_meeting(x, y + sign(moveY), obj_wall)) 
 			{
@@ -81,6 +81,7 @@ if(moveY != 0)
 
 
 //-------PLAYER JUMPING
+//Regular Jump
 if(input_jump) {
 	if(on_ground && !is_falling)
 	{
