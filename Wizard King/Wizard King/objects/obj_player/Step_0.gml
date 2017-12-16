@@ -133,17 +133,6 @@ if(attacking == false && hit == false) {
 }
 
 
-//Invincible
-if(invincible == true) {
-	for(i = 0; i < 4; i++)
-	{
-		test = true
-		draw_text(10, 110, string(i))
-	}
-	test = false
-}
-
-
 
 //-------ADD MOVEMENT
 y += moveY
