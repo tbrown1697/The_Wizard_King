@@ -1,7 +1,36 @@
 //-------RESET MOVE VARIABLES
-moveX = 0
-moveY = obj_controller.force_gravity
+if(hp > 0) {
+	//X VARIABLES
+	if(hitX == true) {
+		moveX = 3 * hit_dir
+	}
 
+	else if(tracking) {
+		moveX = 2 * dir
+		if(x == obj_player.x) {
+			moveX = 0
+		}
+	}
+
+	else {
+		moveX = 0
+		//Change this so roaming/wandering happens here
+	}
+
+	//Y VARIABLES	
+	if(hitY == true && hp > 0) {
+		moveY = -2
+	}
+
+	else {
+		moveY = obj_controller.force_gravity
+	}
+}
+
+else {
+	moveX = 0
+	moveY = obj_controller.force_gravity
+}
 
 
 //-------COLLISION CHECK
@@ -39,14 +68,49 @@ if(moveY != 0)
 			}
 		}
 		moveY = 0
+		
+		if(fear_of_heights && !position_meeting(x + (sprite_width/2) * dir, y + (sprite_height/2) + 8, obj_collision_box)) {
+			moveX = 0
+		}
 	}
 }
 
 
 
 //-------SPRITE MANAGEMENT
-//Flipping sprite horizontally
-image_xscale = dir
+//Flipping sprite horizontally and determining direction
+if(moveX > 0) {
+	image_xscale = 1
+}
+
+else if(moveX < 0) {
+	image_xscale = -1
+}
+
+//Death animation
+if(hp <= 0) {
+	sprite_index = spr_snake_death
+	if(image_index == 18) {
+		instance_destroy()
+	}
+}
+
+
+
+//-------TRACKING AND AI
+if(distance_to_object(obj_player) < 150) {
+	tracking = true
+	if(obj_player.x < x) {
+		dir = -1
+	}
+	else {
+		dir = 1
+	}
+}
+
+else {
+	tracking = false
+}
 
 
 
